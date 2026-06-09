@@ -1,0 +1,4 @@
+ARSENIC DEG ANALYSIS REPORT
+Total Genes: 8
+Upregulated Genes: 4
+Downregulated Genes: 3
