@@ -1,2 +1,7 @@
 venv/
 __pycache__/
+
+upregulated_genes.csv
+downregulated_genes.csv
+summary.txt
+volcano_plot.png
