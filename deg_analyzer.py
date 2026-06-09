@@ -29,13 +29,45 @@ with open("summary.txt", "w") as f:
 
 df["neglog10p"] = -np.log10(df["pvalue"])
 
-plt.figure(figsize=(6,4))
-plt.scatter(df["logFC"], df["neglog10p"])
+nonsig = df[(df["pvalue"] >= 0.05) |
+            ((df["logFC"] <= 1) & (df["logFC"] >= -1))]
+
+up = df[(df["logFC"] > 1) & (df["pvalue"] < 0.05)]
+
+down = df[(df["logFC"] < -1) & (df["pvalue"] < 0.05)]
+
+plt.figure(figsize=(8,6))
+
+plt.scatter(nonsig["logFC"], nonsig["neglog10p"],
+            color="gray", label="Not Significant")
+
+plt.scatter(up["logFC"], up["neglog10p"],
+            color="red", label="Upregulated")
+
+plt.scatter(down["logFC"], down["neglog10p"],
+            color="blue", label="Downregulated")
+
 plt.xlabel("logFC")
 plt.ylabel("-log10(p-value)")
 plt.title("Arsenic DEG Volcano Plot")
 
+plt.legend()
+
 plt.savefig("volcano_plot.png")
+arsenic_genes = [
+    "OsNIP2;1",
+    "OsABCC1",
+    "OsHAC1",
+    "OsHAC4",
+    "OsPCS1",
+    "OsLsi2"
+]
+
+print("\nArsenic-related Genes Found")
+
+for gene in arsenic_genes:
+    if gene in df["Gene"].values:
+        print("-", gene)
 
 print("\nGenerated Files:")
 print("- upregulated_genes.csv")
