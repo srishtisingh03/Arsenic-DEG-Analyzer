@@ -1,8 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
-df = pd.read_csv("arsenic_deg.csv")
+input_file = sys.argv[1]
+
+df = pd.read_csv(input_file)
 
 up = df[(df["logFC"] > 1) & (df["pvalue"] < 0.05)]
 down = df[(df["logFC"] < -1) & (df["pvalue"] < 0.05)]
